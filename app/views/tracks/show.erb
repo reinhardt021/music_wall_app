@@ -12,7 +12,7 @@
     <ul>
       <% author_tracks.each do |track| %>
         <% if track.id != @track.id %>
-          <li><%= track.title %></li>
+          <li><a href="/tracks/<%= track.id %>"><%= track.title %></a></li>
         <% end %>
       <% end %>
     </ul>
