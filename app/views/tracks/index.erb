@@ -3,12 +3,10 @@
 
 <% @tracks.each do |track| %>
   <div>
-    <h3>
-      <%= track.title %>
+    <h3><a href="/tracks/<%= track.id %>"><%= track.title %></a> <small>(by: <%= track.author %>)</small>
     </h3>
-    <p>
-      <small>(by: <%= track.author %>)</small>    
-    </p>
+    <!-- <p> 
+    </p> -->
   </div>
 <% end %>
 
