@@ -8,3 +8,7 @@ get '/tracks' do
   @tracks = Track.all
   erb :'tracks/index'
 end
+
+get '/tracks/new' do
+  erb :'tracks/new'
+end
