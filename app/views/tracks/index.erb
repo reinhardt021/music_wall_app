@@ -4,9 +4,10 @@
 <% @tracks.each do |track| %>
   <div>
     <h3><a href="/tracks/<%= track.id %>"><%= track.title %></a> <small>(by: <%= track.author %>)</small>
+      <% unless track.url == nil || track.url.empty? %>
+        <small><a href="<%= track.url %>">video</a></small>
+      <% end %>
     </h3>
-    <!-- <p> 
-    </p> -->
   </div>
 <% end %>
 

@@ -1,6 +1,10 @@
 <h1><%= @track.title %></h1>
 <p>Artist: <%= @track.author %></p>
 
+<% unless @track.url == nil || @track.url.empty? %>
+  <iframe width="560" height="315" src="<%= @track.url.sub("watch?v=","embed/") %>" frameborder="0" allowfullscreen></iframe>
+<% end %>
+
 <% author_tracks = Track.where(author: @track.author).where.not(id: @track.id) %>
 <% if author_tracks.any? %>
   <div>
