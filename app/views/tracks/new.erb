@@ -1,11 +1,25 @@
+<h1>Enlighten me with your musical finesse</h1>
+<hr/>
+
+<% if @track.errors.any? %>
+  <div>
+    <strong>Some issues with your message, please fix them:</strong>
+    <ul>
+      <% @track.errors.full_messages.each do |track| %>
+        <li><%= track %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <form method="post" action="/tracks">
   <div>
     <label>Song Title:</label>
-    <input type="text" name="title">
+    <input type="text" name="title" value="<%= @track.title %>">
   </div>
   <div>
     <label>Author:</label>
-    <input type="text" name="author">
+    <input type="text" name="author" value="<%= @track.author %>">
   </div>
   <div>
     <label>url:</label>
