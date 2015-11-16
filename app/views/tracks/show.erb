@@ -1,10 +1,19 @@
 <h1><%= @track.title %></h1>
-<p>Author: <%= @track.author %></p>
+<p>Artist: <%= @track.author %></p>
 
-
-
-<h2>Other tracks from this author</h2>
-
+<% author_tracks = Track.where(author: @track.author).where.not(id: @track.id) %>
+<% if author_tracks.any? %>
+  <div>
+    <h3>Other tracks from this artist</h3>
+    <ul>
+      <% author_tracks.each do |track| %>
+        <% if track.id != @track.id %>
+          <li><%= track.title %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <hr/>
 <a href="/tracks">To the WALL!</a>
