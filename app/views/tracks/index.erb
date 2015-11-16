@@ -1,7 +1,16 @@
 <h1>All Tracks</h1>
 <hr/>
 
-
+<% @tracks.each do |track| %>
+  <div>
+    <h3>
+      <%= track.title %>
+    </h3>
+    <p>
+      <small>(by: <%= track.author %>)</small>    
+    </p>
+  </div>
+<% end %>
 
 <hr/>
 <a href="/messages/new"><strong>Add more tracks +</strong></a>
