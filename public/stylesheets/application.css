@@ -19,8 +19,7 @@ header input {
 
 #login {
   padding: 5px;
-  border-radius: 10px;
-  border: solid lightgrey 2px;
+  display: inline;
 }
 
 form {
@@ -28,7 +27,7 @@ form {
 }
 
 form input {
-  border-radius: 5px;
+  border-radius: 10px;
   border: solid lightblue 2px;
   background-color: white;
 }

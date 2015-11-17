@@ -21,6 +21,7 @@
   <header>
     <% if session[:user_id] %>
       <div id="login">Logged in user: <%= session[:user_id] %></div>
+      <form method="POST" action="/logout"><input type="submit" value="Logout"/></form>
     <% else %>
       <form method="POST" action="/login">
         <input type="text" name="email" placeholder="email"/>

@@ -54,3 +54,10 @@ post '/login' do
     redirect '/login?message=Invalid email'
   end
 end
+
+post '/logout' do
+  session.clear
+  session[:user_id] = nil
+  redirect '/tracks'
+end
+
