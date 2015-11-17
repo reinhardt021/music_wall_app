@@ -1,4 +1,38 @@
-body {
+header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 1% 1%;
+}
+
+.content {
   padding: 5% 10%;
-  margin 0 auto;
+  margin: 0 auto;
+}
+
+header input {
+  padding: 5px;
+  border-radius: 10px;
+  border: solid lightgrey 2px;
+  background-color: white;
+}
+
+#login {
+  padding: 5px;
+  border-radius: 10px;
+  border: solid lightgrey 2px;
+}
+
+form {
+  display: inline;
+}
+
+form input {
+  border-radius: 5px;
+  border: solid lightblue 2px;
+  background-color: white;
+}
+
+form input:hover {
+  background-color: lightblue;
 }
