@@ -12,18 +12,16 @@
   </div>
 <% end %>
 
-<form method="post" action="/tracks">
+<form method="POST" action="/tracks">
+  <input type="hidden" name="user_id" value="<%= session[:user_id] %>">
   <div>
-    <label>Song Title:</label>
-    <input type="text" name="title" value="<%= @track.title %>">
+    <input type="text" name="title" value="<%= @track.title %>" placeholder="song title">
   </div>
   <div>
-    <label>Author:</label>
-    <input type="text" name="author" value="<%= @track.author %>">
+    <input type="text" name="author" value="<%= @track.author %>" placeholder="artist">
   </div>
   <div>
-    <label>Youtube video url:</label>
-    <input type="text" name="url">
+    <input type="text" name="url" placeholder="youtube video url">
   </div>
   <div>
     <input type="submit" value="Submit">

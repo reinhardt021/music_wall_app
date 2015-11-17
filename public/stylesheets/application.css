@@ -1,4 +1,40 @@
-body {
-  padding: 5% 10%;
-  margin 0 auto;
+header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 1% 1%;
 }
+
+.content {
+  padding: 5% 10%;
+  margin: 0 auto;
+}
+
+.login {
+  padding: 5px;
+  display: inline;
+}
+
+form {
+  display: inline;
+}
+
+form input {
+  border-radius: 10px;
+  border: solid lightblue 2px;
+  background-color: white;
+  padding: 5px;
+  margin: 3px;
+  /*display: inline;*/
+}
+
+form input:hover {
+  background-color: lightblue;
+  color: white;
+}
+
+#signup input {
+  display: block;
+}
+
+
