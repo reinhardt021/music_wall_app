@@ -6,7 +6,10 @@ end
 
 # Note that each of these are independent of each other as HTTP requests
 get '/tracks' do
-  @tracks = Track.all
+  @tracks = Track.select("tracks.id, tracks.title, tracks.author, tracks.url, SUM(votes.status) AS votes_count").
+                 joins("LEFT OUTER JOIN votes ON tracks.id = votes.track_id").
+                 group("tracks.id").
+                 order("votes_count DESC")
   erb :'tracks/index'
 end
 
