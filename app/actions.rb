@@ -32,7 +32,16 @@ get '/tracks/:id' do
   erb :'/tracks/show'
 end
 
-post '/votes' do
+post '/vote_up' do
+  vote = Vote.create(track_id: params[:track_id],user_id: params[:user_id])
+  if vote.persisted?
+    redirect '/tracks'
+  else
+    redirect '/tracks?message=Cannot vote for song twice'
+  end
+end
+
+post '/vote_down' do
   vote = Vote.create(track_id: params[:track_id],user_id: params[:user_id])
   if vote.persisted?
     redirect '/tracks'
