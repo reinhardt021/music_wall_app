@@ -3,10 +3,17 @@
 
 <% @tracks.each do |track| %>
   <div>
-    <h3><a href="/tracks/<%= track.id %>"><%= track.title %></a> <small>(by: <%= track.author %>)</small>
+    <h3>
+      <form method="POST" post="/votes">
+        <input type="hidden" name="track_id" value="">
+        <input type="hidden" name="user_id" value="">
+        <input type="submit" value=":)">
+      </form>
+      <a href="/tracks/<%= track.id %>"><%= track.title %></a> <small>(by: <%= track.author %>)</small>
       <% unless track.url == nil || track.url.empty? %>
         <small><a href="<%= track.url %>">youtube</a></small>
       <% end %>
+      <small>votes: <%= track.votes.count %></small>
     </h3>
   </div>
 <% end %>
