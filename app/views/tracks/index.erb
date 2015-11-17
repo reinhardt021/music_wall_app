@@ -4,12 +4,12 @@
 <% @tracks.each do |track| %>
   <div>
     <h3>
-      <form method="POST" post="/vote_up">
+      <form method="post" action="/vote_up">
         <input type="hidden" name="track_id" value="<%= track.id %>">
         <input type="hidden" name="user_id" value="<%= session[:user_id] %>">
         <input type="submit" value=":)">
       </form>
-      <form method="POST" post="/vote_down">
+      <form method="POST" action="/vote_down">
         <input type="hidden" name="track_id" value="<%= track.id %>">
         <input type="hidden" name="user_id" value="<%= session[:user_id] %>">
         <input type="submit" value=":(">
@@ -18,7 +18,7 @@
       <% unless track.url == nil || track.url.empty? %>
         <small><a href="<%= track.url %>">youtube</a></small>
       <% end %>
-      <small>votes: <%= track.votes.count %></small>
+      <small>votes: <%= track.votes.where(status: 1).count - track.votes.where(status: -1).count %></small>
     </h3>
   </div>
 <% end %>

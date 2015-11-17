@@ -33,8 +33,8 @@ get '/tracks/:id' do
 end
 
 post '/vote_up' do
-  vote = Vote.create(track_id: params[:track_id],user_id: params[:user_id])
-  if vote.persisted?
+  vote = Vote.new(track_id: params[:track_id],user_id: params[:user_id],status: 1)
+  if vote.save
     redirect '/tracks'
   else
     redirect '/tracks?message=Cannot vote for song twice'
@@ -42,8 +42,8 @@ post '/vote_up' do
 end
 
 post '/vote_down' do
-  vote = Vote.create(track_id: params[:track_id],user_id: params[:user_id])
-  if vote.persisted?
+  vote = Vote.new(track_id: params[:track_id],user_id: params[:user_id],status: -1)
+  if vote.save
     redirect '/tracks'
   else
     redirect '/tracks?message=Cannot vote for song twice'

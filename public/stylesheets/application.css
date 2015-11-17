@@ -10,13 +10,6 @@ header {
   margin: 0 auto;
 }
 
-header input {
-  padding: 5px;
-  border-radius: 10px;
-  border: solid lightgrey 2px;
-  background-color: white;
-}
-
 #login {
   padding: 5px;
   display: inline;
@@ -36,4 +29,5 @@ form input {
 
 form input:hover {
   background-color: lightblue;
+  color: white;
 }
