@@ -1,1 +1,22 @@
-<h1>Welcome to the <a href="/tracks">MUSIC WALL >></a></h1>
+<h1>Welcome to the MUSIC WALL</h1>
+<h2><small>"You are now witnessing the strength of street knowledge"</small></h2>
+<h3><small>- Dr. Dre</small></h3>
+<hr/>
+<% unless session[:user_id] %>
+  <h2>NEW HERE? :)</h2>
+  <% if @user.errors.any? %>
+    <div>
+      <strong>Some issues with your information, please fix them:</strong>
+      <ul>
+        <% @user.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <form id="signup" method="POST" action="/signup">
+    <input type="text" name="email" placeholder="email"/>
+    <input type="password" name="password" placeholder="password"/>
+    <input type="submit" value="SIGN UP"/>
+  </form>
+<% end %>
