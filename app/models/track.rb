@@ -14,6 +14,6 @@ class Track < ActiveRecord::Base
   def match_regex?
     # url.match(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/)
     # url.match(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})/)
-    url.match(/^https:\/\/www\.youtube\.com\/watch\?..\w+$/)
+    url.match(/^https:\/\/www\.youtube\.com\/watch\?/)
   end
 end
