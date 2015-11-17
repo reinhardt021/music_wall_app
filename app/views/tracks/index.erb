@@ -1,0 +1,15 @@
+<h1>MUSIC WALL : Tracks</h1>
+<hr/>
+
+<% @tracks.each do |track| %>
+  <div>
+    <h3><a href="/tracks/<%= track.id %>"><%= track.title %></a> <small>(by: <%= track.author %>)</small>
+      <% unless track.url == nil || track.url.empty? %>
+        <small><a href="<%= track.url %>">youtube</a></small>
+      <% end %>
+    </h3>
+  </div>
+<% end %>
+
+<hr/>
+<a href="/tracks/new"><strong>Add more tracks +</strong></a>
