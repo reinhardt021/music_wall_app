@@ -1,23 +1,35 @@
-<h1><%= @track.title %></h1>
-<p>Artist: <%= @track.author %></p>
-<p><small>(added by: <%= @track.user.email %>)</small></p>
-<% unless @track.url == nil || @track.url.empty? %>
-  <iframe width="560" height="315" src="<%= @track.url.sub("watch?v=","embed/") %>" frameborder="0" allowfullscreen></iframe>
-<% end %>
 
-<% author_tracks = Track.where(author: @track.author).where.not(id: @track.id) %>
-<% if author_tracks.any? %>
-  <div>
-    <h3>Other tracks from this artist</h3>
-    <ul>
-      <% author_tracks.each do |track| %>
-        <% if track.id != @track.id %>
-          <li><a href="/tracks/<%= track.id %>"><%= track.title %></a></li>
+  <h1><%= @track.title %></h1>
+  <h2>Artist: <%= @track.author %></h2>
+  <p><small>(added by: <%= @track.user.email %>)</small></p>
+  <% unless @track.url == nil || @track.url.empty? %>
+    <iframe width="560" height="315" src="<%= @track.url.sub("watch?v=","embed/") %>" frameborder="0" allowfullscreen></iframe>
+  <% end %>
+
+  <% author_tracks = Track.where(author: @track.author).where.not(id: @track.id) %>
+  <% if author_tracks.any? %>
+    <div>
+      <h3>Other tracks from this artist</h3>
+      <ul>
+        <% author_tracks.each do |track| %>
+          <% if track.id != @track.id %>
+            <li><a href="/tracks/<%= track.id %>"><%= track.title %></a></li>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+      </ul>
+    </div>
+  <% end %>
+  <hr/>
+  <h3>Reviews</h3>
+    <!-- form to submit Reviews -->
 
-<hr/>
-<a href="/tracks">To the WALL!</a>
+<% if session[:user_id] %>
+
+
+  <hr/>
+  <a href="/tracks">To the WALL!</a>
+<% else %>
+  <h2>YOU ARE NOT LOGGED IN!</h2>
+  <h3>Please sign up or log in.</h3>
+  <%= erb :'_signup' %>
+<% end %>

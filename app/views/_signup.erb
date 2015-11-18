@@ -1,0 +1,15 @@
+<% if @user.errors.any? %>
+  <div>
+    <strong>Some issues with your information, please fix them:</strong>
+    <ul>
+      <% @user.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<form id="signup" method="POST" action="/signup">
+  <input type="text" name="email" placeholder="email"/>
+  <input type="password" name="password" placeholder="password"/>
+  <input type="submit" value="SIGN UP"/>
+</form>

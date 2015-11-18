@@ -1,29 +1,35 @@
+
 <h1>Enlighten me with your musical finesse</h1>
 <hr/>
+<% if session[:user_id] %>
+  <% if @track.errors.any? %>
+    <div>
+      <strong>Some issues with your message, please fix them:</strong>
+      <ul>
+        <% @track.errors.full_messages.each do |track| %>
+          <li><%= track %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<% if @track.errors.any? %>
-  <div>
-    <strong>Some issues with your message, please fix them:</strong>
-    <ul>
-      <% @track.errors.full_messages.each do |track| %>
-        <li><%= track %></li>
-      <% end %>
-    </ul>
-  </div>
+  <form method="POST" action="/tracks">
+    <input type="hidden" name="user_id" value="<%= session[:user_id] %>">
+    <div>
+      <input type="text" name="title" value="<%= @track.title %>" placeholder="song title">
+    </div>
+    <div>
+      <input type="text" name="author" value="<%= @track.author %>" placeholder="artist">
+    </div>
+    <div>
+      <input type="text" name="url" placeholder="youtube video url">
+    </div>
+    <div>
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+<% else %>
+  <h2>YOU ARE NOT LOGGED IN!</h2>
+  <h3>Please sign up or log in.</h3>
+  <%= erb :'_signup' %>
 <% end %>
-
-<form method="POST" action="/tracks">
-  <input type="hidden" name="user_id" value="<%= session[:user_id] %>">
-  <div>
-    <input type="text" name="title" value="<%= @track.title %>" placeholder="song title">
-  </div>
-  <div>
-    <input type="text" name="author" value="<%= @track.author %>" placeholder="artist">
-  </div>
-  <div>
-    <input type="text" name="url" placeholder="youtube video url">
-  </div>
-  <div>
-    <input type="submit" value="Submit">
-  </div>
-</form>
