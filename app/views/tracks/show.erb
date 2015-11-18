@@ -23,22 +23,24 @@
   <h3>Reviews</h3>
 
 <% if session[:user_id] %>
-    <!-- dissappearing form if user already made a review -->
-    <form method="POST" action="/reviews">
-      <input type="hidden" name="user_id" value="<%= session[:user_id] %>"/>
-      <input type="hidden" name="track_id" value="<%= @track.id %>" />
-      <input type="text" name="comment" placeholder="comment"/>
-      <input type="submit" value="post review"/>
-    </form>
+  <% track_reviews = Review.where(track_id: @track.id).order("created_at DESC") %>
+    <% unless track_reviews.any? {|review| review.user_id == session[:user_id]} %>
+      <form method="POST" action="/reviews">
+        <input type="hidden" name="user_id" value="<%= session[:user_id] %>"/>
+        <input type="hidden" name="track_id" value="<%= @track.id %>" />
+        <input type="text" name="comment" placeholder="comment"/>
+        <input type="submit" value="post review"/>
+      </form>
+    <% end %>
 
     <div>
-      <% track_reviews = Review.where(track_id: @track.id) %>
       <% if track_reviews.any? %>
-        <ul>
-          <% track_reviews.each do |review| %>
-            <li><%= review.comment %></li>
-          <% end %>
-        </ul>
+        <% track_reviews.each do |review| %>
+          <div class="reviews">
+            <%= review.comment %><br/>
+            <small>by: <%= User.find(review.user_id).email %></small>
+          </div>
+        <% end %>
       <% else %>
         <h4>No Reviews</h4>
       <% end %>        

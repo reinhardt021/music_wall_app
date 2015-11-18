@@ -36,4 +36,8 @@ form input:hover {
   display: block;
 }
 
+.reviews {
+  margin: 1em;
+  padding: 1em;
+}
 

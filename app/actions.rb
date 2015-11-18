@@ -58,7 +58,7 @@ post '/reviews' do
   if @review.save
     redirect "/tracks/#{@review.track_id}"
   else
-    erb :'/tracks/show'
+    redirect "/tracks/#{@review.track_id}?message=Cannot review track twice" # erb :'/tracks/show'
   end
 end
 
