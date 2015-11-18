@@ -1,6 +1,10 @@
 helpers do
   def make_vote(status)
-    vote = Vote.new(track_id: params[:track_id],user_id: params[:user_id],status: status)
+    vote = Vote.new(
+      track_id: params[:track_id],
+      user_id: params[:user_id],
+      status: status
+    )
     if vote.save
       redirect '/tracks'
     else
@@ -42,6 +46,19 @@ post '/tracks' do
     redirect '/tracks'
   else
     erb :'tracks/new'
+  end
+end
+
+post '/reviews' do
+  @review = Review.new(
+    comment: params[:comment],
+    track_id: params[:track_id],
+    user_id: params[:user_id]
+  )
+  if @review.save
+    redirect "/tracks/#{@review.track_id}"
+  else
+    erb :'/tracks/show'
   end
 end
 

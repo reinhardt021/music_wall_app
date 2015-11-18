@@ -23,13 +23,30 @@
   <h3>Reviews</h3>
 
 <% if session[:user_id] %>
-    <!-- form to submit Reviews -->
     <!-- dissappearing form if user already made a review -->
+    <form method="POST" action="/reviews">
+      <input type="hidden" name="user_id" value="<%= session[:user_id] %>"/>
+      <input type="hidden" name="track_id" value="<%= @track.id %>" />
+      <input type="text" name="comment" placeholder="comment"/>
+      <input type="submit" value="post review"/>
+    </form>
 
-  <hr/>
-  <a href="/tracks">To the WALL!</a>
+    <div>
+      <% track_reviews = Review.where(track_id: @track.id) %>
+      <% if track_reviews.any? %>
+        <ul>
+          <% track_reviews.each do |review| %>
+            <li><%= review.comment %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <h4>No Reviews</h4>
+      <% end %>        
+    </div>
 <% else %>
   <h2>YOU ARE NOT LOGGED IN!</h2>
   <h3>Please sign up or log in to add reviews.</h3>
   <%= erb :'_signup' %>
 <% end %>
+<hr/>
+<a href="/tracks">To the WALL!</a>
