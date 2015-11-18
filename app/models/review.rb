@@ -2,7 +2,11 @@ class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :track
 
-  # need to add restriction to only create one review per user
+  validates :rating, 
+    presence: true, 
+    numericality: { only_integer: true,
+                    greater_than_or_equal_to: 1,
+                    less_than_or_equal_to: 5 }
   validate :just_one_review
 
   def just_one_review

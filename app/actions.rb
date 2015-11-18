@@ -53,7 +53,8 @@ post '/reviews' do
   @review = Review.new(
     comment: params[:comment],
     track_id: params[:track_id],
-    user_id: params[:user_id]
+    user_id: params[:user_id],
+    rating: params[:rating].to_i
   )
   if @review.save
     redirect "/tracks/#{@review.track_id}"
