@@ -1,23 +1,72 @@
-<h1><%= @track.title %></h1>
-<p>Artist: <%= @track.author %></p>
-<p><small>(added by: <%= @track.user.email %>)</small></p>
-<% unless @track.url == nil || @track.url.empty? %>
-  <iframe width="560" height="315" src="<%= @track.url.sub("watch?v=","embed/") %>" frameborder="0" allowfullscreen></iframe>
-<% end %>
 
-<% author_tracks = Track.where(author: @track.author).where.not(id: @track.id) %>
-<% if author_tracks.any? %>
-  <div>
-    <h3>Other tracks from this artist</h3>
-    <ul>
-      <% author_tracks.each do |track| %>
-        <% if track.id != @track.id %>
-          <li><a href="/tracks/<%= track.id %>"><%= track.title %></a></li>
+  <h1><%= @track.title %></h1>
+  <h2>Artist: <%= @track.author %></h2>
+  <p><small>(added by: <%= @track.user.email %>)</small></p>
+  <% unless @track.url == nil || @track.url.empty? %>
+    <iframe width="560" height="315" src="<%= @track.url.sub("watch?v=","embed/") %>" frameborder="0" allowfullscreen></iframe>
+  <% end %>
+
+  <% author_tracks = Track.where(author: @track.author).where.not(id: @track.id) %>
+  <% if author_tracks.any? %>
+    <div>
+      <h3>Other tracks from this artist</h3>
+      <ul>
+        <% author_tracks.each do |track| %>
+          <% if track.id != @track.id %>
+            <li><a href="/tracks/<%= track.id %>"><%= track.title %></a></li>
+          <% end %>
         <% end %>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+      </ul>
+    </div>
+  <% end %>
+  <hr/>
+  <h3>Reviews</h3>
 
+<% if session[:user_id] %>
+  <% track_reviews = Review.where(track_id: @track.id).order("created_at DESC") %>
+    <% unless track_reviews.any? {|review| review.user_id == session[:user_id]} %>
+      <form method="POST" action="/reviews">
+        <label for="rating">Rating:</label>
+        <select name="rating" id="rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <br/>
+        <input type="hidden" name="user_id" value="<%= session[:user_id] %>"/>
+        <input type="hidden" name="track_id" value="<%= @track.id %>" />
+        <input type="text" name="comment" placeholder="comment"/>
+        <br/>
+        <input type="submit" value="post review"/>
+      </form>
+    <% end %>
+
+    <div>
+      <% if track_reviews.any? %>
+        <% track_reviews.each do |review| %>
+          <div class="reviews">
+            <%= review.comment %><br/>
+            <small>by: <%= User.find(review.user_id).email %></small><br/>
+            <small>rating: <%= review.rating %>/5</small><br/>
+            <% if session[:user_id] == review.user_id %>
+              <form method="GET" action="/delete">
+                <input type="hidden" name="review_id" value="<%= review.id %>"> 
+                <input type="hidden" name="track_id" value="<%= @track.id %>">
+                <input type="submit" value="delete">
+              </form>
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <h4>No Reviews</h4>
+      <% end %>        
+    </div>
+<% else %>
+  <h2>YOU ARE NOT LOGGED IN!</h2>
+  <h3>Please sign up or log in to add reviews.</h3>
+  <%= erb :'_signup' %>
+<% end %>
 <hr/>
 <a href="/tracks">To the WALL!</a>

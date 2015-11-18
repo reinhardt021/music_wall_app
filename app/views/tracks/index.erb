@@ -1,27 +1,36 @@
 <h1>MUSIC WALL : Tracks</h1>
 <hr/>
 
-<% @tracks.each do |track| %>
-  <div>
-    <h3>
-      <form method="post" action="/vote_up">
-        <input type="hidden" name="track_id" value="<%= track.id %>">
-        <input type="hidden" name="user_id" value="<%= session[:user_id] %>">
-        <input type="submit" value=":)">
-      </form>
-      <form method="POST" action="/vote_down">
-        <input type="hidden" name="track_id" value="<%= track.id %>">
-        <input type="hidden" name="user_id" value="<%= session[:user_id] %>">
-        <input type="submit" value=":(">
-      </form>
-      <a href="/tracks/<%= track.id %>"><%= track.title %></a> <small>(by: <%= track.author %>)</small>
-      <% unless track.url == nil || track.url.empty? %>
-        <small><a href="<%= track.url %>">youtube</a></small>
-      <% end %>
-      <small>votes: <%= track.votes.where(status: 1).count - track.votes.where(status: -1).count %></small>
-    </h3>
-  </div>
-<% end %>
 
-<hr/>
-<a href="/tracks/new"><strong>Add more tracks +</strong></a>
+  <% @tracks.each do |track| %>
+    <div>
+      <h3>
+        <% if session[:user_id] %>
+          <form method="post" action="/vote_up">
+            <input type="hidden" name="track_id" value="<%= track.id %>">
+            <input type="hidden" name="user_id" value="<%= session[:user_id] %>">
+            <input type="submit" value=":)">
+          </form>
+          <form method="POST" action="/vote_down">
+            <input type="hidden" name="track_id" value="<%= track.id %>">
+            <input type="hidden" name="user_id" value="<%= session[:user_id] %>">
+            <input type="submit" value=":(">
+          </form>
+        <% end %>
+        <a href="/tracks/<%= track.id %>"><%= track.title %></a> <small>(by: <%= track.author %>)</small>
+        <% unless track.url == nil || track.url.empty? %>
+          <small><a href="<%= track.url %>">youtube</a></small>
+        <% end %>
+        <small>votes: <%= track.votes.where(status: 1).count - track.votes.where(status: -1).count %></small>
+      </h3>
+    </div>
+  <% end %>
+
+  <hr/>
+<% unless session[:user_id] %>
+  <h2>YOU ARE NOT LOGGED IN!</h2>
+  <h3>Please sign up or log in to vote or add more tracks</h3>
+  <%= erb :'_signup' %>
+<% else %>
+  <a href="/tracks/new"><strong>Add more tracks +</strong></a>
+<% end %>
