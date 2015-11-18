@@ -68,6 +68,13 @@ get '/tracks/:id' do
   erb :'/tracks/show'
 end
 
+get '/delete' do
+  @review =Review.find(params[:review_id])
+  @review.destroy 
+  @track = Track.find(params[:track_id])
+  erb :'/tracks/show'
+end
+
 post '/vote_up' do
   make_vote(1)
 end
@@ -111,4 +118,6 @@ post '/signup' do
   end
 
 end
+
+
 
