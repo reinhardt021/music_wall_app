@@ -13,13 +13,11 @@ helpers do
   end
 end
 
-# Homepage (Root path)
 get '/' do
   @user = User.new
   erb :index
 end
 
-# Note that each of these are independent of each other as HTTP requests
 get '/tracks' do
   @user = User.new
   @tracks = Track.select("tracks.id, tracks.title, tracks.author, tracks.url, SUM(votes.status) AS votes_count").
