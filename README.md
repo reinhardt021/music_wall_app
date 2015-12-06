@@ -1,8 +1,8 @@
 MUSIC WALL
 =============
-(Brought to you by Lighthouse Labs)
+(Brought to you by Reinhardt C. @ Lighthouse Labs)
 
-Minimalist music wall available for the public
+Minimalist Music wall available for the public
 - allows visitors to view a list of songs 
 - users can add more songs to the list as desired
 - users can also choose to include youtube links
