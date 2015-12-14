@@ -1,6 +1,12 @@
 <h1>MUSIC WALL : Tracks</h1>
 <hr/>
-
+<% unless session[:user_id] %>
+  <h2>YOU ARE NOT LOGGED IN!</h2>
+  <h3>Please sign up or log in to vote or add more tracks</h3>
+  <%= erb :'_signup' %>
+<% else %>
+  <a href="/tracks/new"><strong>Add more tracks +</strong></a>
+<% end %>
   <% @tracks.each do |track| %>
     <div>
       <h3>
@@ -26,10 +32,3 @@
   <% end %>
 
   <hr/>
-<% unless session[:user_id] %>
-  <h2>YOU ARE NOT LOGGED IN!</h2>
-  <h3>Please sign up or log in to vote or add more tracks</h3>
-  <%= erb :'_signup' %>
-<% else %>
-  <a href="/tracks/new"><strong>Add more tracks +</strong></a>
-<% end %>

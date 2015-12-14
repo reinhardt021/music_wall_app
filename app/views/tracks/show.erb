@@ -1,26 +1,27 @@
+<a href="/tracks">< Back to the WALL!</a>
+<hr/>
+<h1><%= @track.title %></h1>
+<h2>Artist: <%= @track.author %></h2>
+<p><small>(added by: <%= @track.user.email %>)</small></p>
+<% unless @track.url == nil || @track.url.empty? %>
+  <iframe width="560" height="315" src="<%= @track.url.sub("watch?v=","embed/") %>" frameborder="0" allowfullscreen></iframe>
+<% end %>
 
-  <h1><%= @track.title %></h1>
-  <h2>Artist: <%= @track.author %></h2>
-  <p><small>(added by: <%= @track.user.email %>)</small></p>
-  <% unless @track.url == nil || @track.url.empty? %>
-    <iframe width="560" height="315" src="<%= @track.url.sub("watch?v=","embed/") %>" frameborder="0" allowfullscreen></iframe>
-  <% end %>
-
-  <% author_tracks = Track.where(author: @track.author).where.not(id: @track.id) %>
-  <% if author_tracks.any? %>
-    <div>
-      <h3>Other tracks from this artist</h3>
-      <ul>
-        <% author_tracks.each do |track| %>
-          <% if track.id != @track.id %>
-            <li><a href="/tracks/<%= track.id %>"><%= track.title %></a></li>
-          <% end %>
+<% author_tracks = Track.where(author: @track.author).where.not(id: @track.id) %>
+<% if author_tracks.any? %>
+  <div>
+    <h3>Other tracks from this artist</h3>
+    <ul>
+      <% author_tracks.each do |track| %>
+        <% if track.id != @track.id %>
+          <li><a href="/tracks/<%= track.id %>"><%= track.title %></a></li>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <hr/>
-  <h3>Reviews</h3>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<hr/>
+<h3>Reviews</h3>
 
 <% if session[:user_id] %>
   <% track_reviews = Review.where(track_id: @track.id).order("created_at DESC") %>
@@ -39,7 +40,7 @@
         <input type="hidden" name="track_id" value="<%= @track.id %>" />
         <input type="text" name="comment" placeholder="comment"/>
         <br/>
-        <input type="submit" value="post review"/>
+        <input type="submit" value="ADD"/>
       </form>
     <% end %>
 
@@ -69,4 +70,3 @@
   <%= erb :'_signup' %>
 <% end %>
 <hr/>
-<a href="/tracks">To the WALL!</a>
